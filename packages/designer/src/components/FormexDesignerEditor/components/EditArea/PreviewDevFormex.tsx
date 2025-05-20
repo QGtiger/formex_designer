@@ -68,19 +68,13 @@ export default function PreviewDevFormex() {
     setHoverComponetId("");
   }, [selectedIndex]);
 
-  useKeyPress(
-    ["delete", "backspace"],
-    (event) => {
-      if (selectedComponentId) {
-        event.preventDefault();
-        deleteFormexItemByComponentId(selectedComponentId);
-        setSelectedComponentId("");
-      }
-    },
-    {
-      target: formexDomRef,
+  useKeyPress(["delete", "backspace"], (event) => {
+    if (selectedComponentId) {
+      event.preventDefault();
+      deleteFormexItemByComponentId(selectedComponentId);
+      setSelectedComponentId("");
     }
-  );
+  });
 
   function renderComponents(components?: FormexItem[]): React.ReactNode {
     if (!components) return null;
@@ -110,10 +104,9 @@ export default function PreviewDevFormex() {
     <div
       onClick={handleClick}
       className="edit-area relative w-full min-h-full bg-white   rounded-xl"
+      ref={formexDomRef}
     >
-      <div className={classNames("")} ref={formexDomRef}>
-        {renderComponents(formItems)}
-      </div>
+      <div className={classNames("")}>{renderComponents(formItems)}</div>
       {/* 显示 hoverMask */}
       {hoverComponentId && (
         <HoverMask

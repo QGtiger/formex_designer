@@ -61,7 +61,10 @@ export default function Setting() {
     );
   }
   return (
-    <div className=" h-full overflow-auto p-4 px-6">
+    <div
+      className=" h-full overflow-auto p-4 px-6"
+      onKeyDownCapture={(e) => e.stopPropagation()}
+    >
       <Form
         layout="vertical"
         initialValues={{

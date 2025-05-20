@@ -50,7 +50,6 @@ const MaterialTree: React.FC = () => {
   ];
 
   const onSelect: TreeProps["onSelect"] = (selectedKeys, info) => {
-    console.log("selected", selectedKeys, info);
     const key = selectedKeys[0];
     if (!key || key === "root") return;
     setSelectedComponentId(selectedKeys[0] as string);
