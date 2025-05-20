@@ -6,6 +6,7 @@ import { useSchemaStore } from "@/stores/useSchemaStore";
 import { motion } from "framer-motion";
 import { DeleteOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
+import { useKeyPress } from "ahooks";
 
 export default function PreviewDevFormex() {
   const {
@@ -66,6 +67,14 @@ export default function PreviewDevFormex() {
   useEffect(() => {
     setHoverComponetId("");
   }, [selectedIndex]);
+
+  useKeyPress(["delete", "backspace"], (event) => {
+    if (selectedComponentId) {
+      event.preventDefault();
+      deleteFormexItemByComponentId(selectedComponentId);
+      setSelectedComponentId("");
+    }
+  });
 
   function renderComponents(components?: FormexItem[]): React.ReactNode {
     if (!components) return null;

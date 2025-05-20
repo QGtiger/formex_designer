@@ -33,8 +33,9 @@ function LowCodeFormIcon(props: { classNames?: string }) {
 export default function Header(props: {
   rightContent?: React.ReactNode;
   leftContent?: React.ReactNode;
+  title?: string;
 }) {
-  const { rightContent, leftContent } = props;
+  const { rightContent, leftContent, title } = props;
   return (
     <header className="bg-white border-b border-solid border-gray-200 py-4 px-6 flex items-center justify-between shadow-md z-30">
       <div className="flex items-center gap-4">
@@ -43,7 +44,7 @@ export default function Header(props: {
         </div>
         {leftContent || (
           <h1 className="text-xl font-semibold text-walkflow-darktext">
-            Formex
+            {title || "Formex Designer"}
           </h1>
         )}
       </div>

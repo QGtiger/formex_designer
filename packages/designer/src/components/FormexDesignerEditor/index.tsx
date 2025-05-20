@@ -21,8 +21,10 @@ export default function FormexDesignerEditor(props: {
   initialSchema?: FormexSchema;
   height?: number;
   onChange?: (schema: FormexSchema) => void;
+  title?: string;
+  headerMenu?: React.ReactNode;
 }) {
-  const { initialSchema, height, onChange } = props;
+  const { initialSchema, height, onChange, title, headerMenu } = props;
   const { setSchema, selectedComponentId, schema } = useSchemaStore();
 
   useEffect(() => {
@@ -53,7 +55,7 @@ export default function FormexDesignerEditor(props: {
                 height: height ? `${height}px` : "100vh",
               }}
             >
-              <Header />
+              <Header title={title} rightContent={headerMenu} />
               <Allotment
                 defaultSizes={[100]}
                 id="allotment-container"
