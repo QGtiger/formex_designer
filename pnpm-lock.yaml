@@ -10,16 +10,25 @@ importers:
 
   apps/formexdemo:
     dependencies:
+      '@formex/designer':
+        specifier: workspace:*
+        version: link:../../packages/designer
       react:
         specifier: ^19.1.0
         version: 19.1.0
       react-dom:
         specifier: ^19.1.0
         version: 19.1.0(react@19.1.0)
+      react-router-dom:
+        specifier: 6.21.1
+        version: 6.21.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
     devDependencies:
       '@eslint/js':
         specifier: ^9.25.0
         version: 9.27.0
+      '@types/node':
+        specifier: ^22.15.19
+        version: 22.15.19
       '@types/react':
         specifier: ^19.1.2
         version: 19.1.4
@@ -606,6 +615,10 @@ packages:
 
   '@react-dnd/shallowequal@4.0.2':
     resolution: {integrity: sha512-/RVXdLvJxLg4QKvMoM5WlwNR9ViO9z8B/qPcc+C0Sa/teJY7QG7kJ441DwzOjMYEY7GmU4dj5EcGHIkKZiQZCA==}
+
+  '@remix-run/router@1.14.1':
+    resolution: {integrity: sha512-Qg4DMQsfPNAs88rb2xkdk03N3bjK4jgX5fR24eHCTR9q6PrhZQZ4UJBPzCHJkIpTRN1UKxx2DzjZmnC+7Lj0Ow==}
+    engines: {node: '>=14.0.0'}
 
   '@rollup/rollup-android-arm-eabi@4.41.0':
     resolution: {integrity: sha512-KxN+zCjOYHGwCl4UCtSfZ6jrq/qi88JDUtiEFk8LELEHq2Egfc/FgW+jItZiOLRuQfb/3xJSgFuNPC9jzggX+A==}
@@ -1847,6 +1860,19 @@ packages:
     resolution: {integrity: sha512-z6F7K9bV85EfseRCp2bzrpyQ0Gkw1uLoCel9XBVWPg/TjRj94SkJzUTGfOa4bs7iJvBWtQG0Wq7wnI0syw3EBQ==}
     engines: {node: '>=0.10.0'}
 
+  react-router-dom@6.21.1:
+    resolution: {integrity: sha512-QCNrtjtDPwHDO+AO21MJd7yIcr41UetYt5jzaB9Y1UYaPTCnVuJq6S748g1dE11OQlCFIQg+RtAA1SEZIyiBeA==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      react: '>=16.8'
+      react-dom: '>=16.8'
+
+  react-router@6.21.1:
+    resolution: {integrity: sha512-W0l13YlMTm1YrpVIOpjCADJqEUpz1vm+CMo47RuFX4Ftegwm6KOYsL5G3eiE52jnJpKvzm6uB/vTKTPKM8dmkA==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      react: '>=16.8'
+
   react@19.1.0:
     resolution: {integrity: sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==}
     engines: {node: '>=0.10.0'}
@@ -2632,6 +2658,8 @@ snapshots:
   '@react-dnd/invariant@4.0.2': {}
 
   '@react-dnd/shallowequal@4.0.2': {}
+
+  '@remix-run/router@1.14.1': {}
 
   '@rollup/rollup-android-arm-eabi@4.41.0':
     optional: true
@@ -3972,6 +4000,18 @@ snapshots:
   react-is@18.3.1: {}
 
   react-refresh@0.17.0: {}
+
+  react-router-dom@6.21.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      '@remix-run/router': 1.14.1
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      react-router: 6.21.1(react@19.1.0)
+
+  react-router@6.21.1(react@19.1.0):
+    dependencies:
+      '@remix-run/router': 1.14.1
+      react: 19.1.0
 
   react@19.1.0: {}
 

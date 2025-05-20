@@ -1,11 +1,12 @@
 {
-  "name": "formex_designer",
+  "name": "formexdesigner",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:prod": "pnpm --filter @formex/designer build",
+    "build": "pnpm  -r build"
   },
   "keywords": [],
   "author": "",
