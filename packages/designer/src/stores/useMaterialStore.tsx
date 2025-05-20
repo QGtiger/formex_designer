@@ -17,6 +17,7 @@ import MutliSelect from "./materials/multiSelect";
 import CustomSelect from "./materials/select";
 import { defaultInputSetter } from "./utils/constant";
 import CustomForm from "./materials/form";
+import CustomDatePicker from "./materials/datepicker";
 
 interface MaterialState {
   materialList: MaterialItem[];
@@ -39,11 +40,7 @@ export const useMaterialStore = create<MaterialState>(() => {
   );
   const MaterialSelect = FormItemHoc(FormItemLabelHoc(CustomSelect));
   const MaterialMultiSelect = FormItemHoc(FormItemLabelHoc(MutliSelect));
-  const MaterialDatePicker = FormItemHoc(
-    FormItemLabelHoc((props: any) => {
-      return <DatePicker {...props} style={{ width: "100%" }} />;
-    })
-  );
+  const MaterialDatePicker = FormItemHoc(FormItemLabelHoc(CustomDatePicker));
 
   const defaultProps = {
     placeholder: "请输入",
@@ -225,7 +222,14 @@ export const useMaterialStore = create<MaterialState>(() => {
       defaultProps,
       dev: MaterialWrapperHoc(MaterialDatePicker),
       prod: MaterialDatePicker,
-      configSetter: [...defaultInputSetter],
+      configSetter: [
+        ...defaultInputSetter,
+        {
+          type: "datepickerformatselelctor",
+          name: "format",
+          label: "日期格式",
+        },
+      ],
     },
   ];
 

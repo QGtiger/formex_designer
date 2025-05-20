@@ -4,6 +4,7 @@ import { Empty, Form, Input, InputNumber, Switch } from "antd";
 import RichEditorBtn from "./components/RichEditorBtn";
 import BgSelector from "./components/bgSelector";
 import OptionsEditor from "./components/optionsEditor";
+import DatePickerFormatSelector from "./components/DatePickerFormatSelector";
 
 function renderFormElememt(setter: Setter) {
   const { type, componentProps } = setter;
@@ -27,6 +28,8 @@ function renderFormElememt(setter: Setter) {
     return <OptionsEditor />;
   } else if (type === "switch") {
     return <Switch />;
+  } else if (type === "datepickerformatselelctor") {
+    return <DatePickerFormatSelector />;
   }
 }
 

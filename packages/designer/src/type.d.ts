@@ -1,3 +1,5 @@
+type DatePickerFormat = "YYYY-MM-DD" | "YYYY/MM/DD";
+
 interface Setter {
   type: string;
   name: string;
