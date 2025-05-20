@@ -6,8 +6,7 @@
   "private": true,
   "scripts": {
     "build:prod": "pnpm --filter @formex/designer build",
-    "build": "pnpm  -r build",
-    "publish": "pnpm --filter @formex/designer publish --access public"
+    "build": "pnpm  -r build"
   },
   "keywords": [],
   "author": "",
