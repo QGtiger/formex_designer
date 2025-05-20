@@ -5,6 +5,7 @@ import {
   NumberOutlined,
   SelectOutlined,
   CloudUploadOutlined,
+  UploadOutlined,
 } from "@ant-design/icons";
 import { DatePicker, Input, InputNumber } from "antd";
 import { create } from "zustand";
@@ -18,6 +19,7 @@ import CustomSelect from "./materials/select";
 import { defaultInputSetter } from "./utils/constant";
 import CustomForm from "./materials/form";
 import CustomDatePicker from "./materials/datepicker";
+import DraggerUpload from "./materials/DraggerUpload";
 
 interface MaterialState {
   materialList: MaterialItem[];
@@ -31,6 +33,13 @@ const IconFont = createFromIconfontCN({
   scriptUrl: "//at.alicdn.com/t/c/font_4921468_i9tqszect6l.js",
 });
 
+function getDefaultProps(opts: { name?: string }) {
+  return {
+    placeholder: "请输入",
+    name: opts.name || "表单项标题",
+  };
+}
+
 export const useMaterialStore = create<MaterialState>(() => {
   const MaterialInput = FormItemHoc(FormItemLabelHoc(Input));
   const MaterialInputNumber = FormItemHoc(
@@ -41,11 +50,7 @@ export const useMaterialStore = create<MaterialState>(() => {
   const MaterialSelect = FormItemHoc(FormItemLabelHoc(CustomSelect));
   const MaterialMultiSelect = FormItemHoc(FormItemLabelHoc(MutliSelect));
   const MaterialDatePicker = FormItemHoc(FormItemLabelHoc(CustomDatePicker));
-
-  const defaultProps = {
-    placeholder: "请输入",
-    name: "表单项标题",
-  };
+  const MaterialDraggerUpload = FormItemHoc(FormItemLabelHoc(DraggerUpload));
 
   const materialList: MaterialItem[] = [
     {
@@ -139,7 +144,9 @@ export const useMaterialStore = create<MaterialState>(() => {
       name: "输入框",
       desc: "输入框组件",
       icon: <IconFont type="icon-biaodanzujian-shurukuang" />,
-      defaultProps,
+      defaultProps: getDefaultProps({
+        name: "输入框",
+      }),
       configSetter: [
         ...defaultInputSetter,
         {
@@ -158,7 +165,9 @@ export const useMaterialStore = create<MaterialState>(() => {
       icon: <NumberOutlined />,
       dev: MaterialWrapperHoc(MaterialInputNumber),
       prod: MaterialInputNumber,
-      defaultProps,
+      defaultProps: getDefaultProps({
+        name: "数字输入",
+      }),
       configSetter: [
         ...defaultInputSetter,
         {
@@ -175,7 +184,9 @@ export const useMaterialStore = create<MaterialState>(() => {
       icon: <SelectOutlined />,
       dev: MaterialWrapperHoc(MaterialSelect),
       prod: MaterialSelect,
-      defaultProps,
+      defaultProps: getDefaultProps({
+        name: "下拉选择",
+      }),
       configSetter: [
         ...defaultInputSetter,
         {
@@ -195,7 +206,9 @@ export const useMaterialStore = create<MaterialState>(() => {
       name: "下拉多选",
       desc: "多选下拉",
       icon: <IconFont type="icon-duoxuanxiala" />,
-      defaultProps,
+      defaultProps: getDefaultProps({
+        name: "下拉多选",
+      }),
       dev: MaterialWrapperHoc(MaterialMultiSelect),
       prod: MaterialMultiSelect,
       configSetter: [
@@ -207,19 +220,32 @@ export const useMaterialStore = create<MaterialState>(() => {
         },
       ],
     },
-    // {
-    //   code: "upload",
-    //   name: "文件上传",
-    //   desc: "文件上传组件",
-    //   icon: <IconFont type="icon-wenjianshangchuan" />,
-    //   dev: () => <div>Checkbox Component</div>,
-    // },
+    {
+      code: "upload",
+      name: "文件上传",
+      desc: "文件上传组件",
+      icon: <UploadOutlined />,
+      dev: MaterialWrapperHoc(MaterialDraggerUpload),
+      prod: MaterialDraggerUpload,
+      defaultProps: getDefaultProps({
+        name: "文件上传",
+      }),
+      configSetter: [
+        {
+          type: "input",
+          name: "name",
+          label: "标题文案",
+        },
+      ],
+    },
     {
       code: "datePicker",
       name: "日期选择",
       desc: "日期选择组件",
       icon: <IconFont type="icon-riqixuanze" />,
-      defaultProps,
+      defaultProps: getDefaultProps({
+        name: "日期选择",
+      }),
       dev: MaterialWrapperHoc(MaterialDatePicker),
       prod: MaterialDatePicker,
       configSetter: [

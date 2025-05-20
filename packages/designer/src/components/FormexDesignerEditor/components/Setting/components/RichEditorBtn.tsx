@@ -3,7 +3,6 @@ import { Editor } from "@toast-ui/react-editor";
 
 import "@toast-ui/editor/toastui-editor.css";
 import "@toast-ui/editor/dist/i18n/zh-cn";
-import { handleImageUpload } from "../utils";
 import { useEffect, useRef } from "react";
 
 import "prismjs/themes/prism.css";
@@ -16,6 +15,7 @@ import Prism from "prismjs";
 import "prismjs/components/prism-clojure.js";
 
 import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
+import { handleImageUpload } from "@/utils";
 
 function RichEditor({
   value,
