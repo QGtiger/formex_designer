@@ -4,6 +4,8 @@ import { initRoutes } from "./utils/pagerouter";
 import { basename } from "./utils";
 import { App } from "antd";
 
+import "./main.css";
+
 const router = createBrowserRouter(initRoutes(), {
   basename,
 });
