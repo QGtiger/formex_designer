@@ -25,10 +25,22 @@ export default function FormexDesignerEditor(props: {
   headerMenu?: React.ReactNode;
 }) {
   const { initialSchema, height, onChange, title, headerMenu } = props;
-  const { setSchema, selectedComponentId, schema } = useSchemaStore();
+  const {
+    setSchema,
+    selectedComponentId,
+    schema,
+    setOverComponentId,
+    setSelectedComponentId,
+  } = useSchemaStore();
 
   useEffect(() => {
     initialSchema && setSchema(initialSchema);
+
+    return () => {
+      // TODO : 组件卸载时清空数据 后续动态创建store 好了
+      setSelectedComponentId("");
+      setOverComponentId("");
+    };
   }, []);
 
   useEffect(() => {
