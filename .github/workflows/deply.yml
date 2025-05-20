@@ -44,7 +44,7 @@ jobs:
       - name: Build
         run: pnpm run build
       - name: Generate 404.html
-        run: cp apps/formexdemo/dist/index.html dist/404.html
+        run: cp apps/formexdemo/dist/index.html apps/formexdemo/dist/404.html
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
