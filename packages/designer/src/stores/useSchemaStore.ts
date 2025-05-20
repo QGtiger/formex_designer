@@ -159,7 +159,11 @@ export const useSchemaStore = create<SchemaState & SchemaAction>((set, get) => {
     },
 
     insertFormItem(materialItem: MaterialItem) {
-      const { overComponentId, overPlacement } = get();
+      const { overComponentId, overPlacement, selectedComponentId } = get();
+
+      const insertId = overComponentId || selectedComponentId;
+      const insertPlacement = overComponentId ? overPlacement : "bottom";
+
       const formItems = getFormexItemsWithForm();
 
       const newItem: FormexItem = {
@@ -170,9 +174,9 @@ export const useSchemaStore = create<SchemaState & SchemaAction>((set, get) => {
         },
       };
 
-      const index = formItems.findIndex((it) => it.id === overComponentId);
+      const index = formItems.findIndex((it) => it.id === insertId);
       if (index !== -1) {
-        const insertIndex = overPlacement === "top" ? index : index + 1;
+        const insertIndex = insertPlacement === "top" ? index : index + 1;
         formItems.splice(insertIndex, 0, newItem);
       } else {
         // TODO 这里特殊处理一下，添加到倒数第二个

@@ -3,7 +3,7 @@ import { Editor } from "@toast-ui/react-editor";
 
 import "@toast-ui/editor/toastui-editor.css";
 import "@toast-ui/editor/dist/i18n/zh-cn";
-import { handleImageUpload } from "./utils";
+import { handleImageUpload } from "../utils";
 import { useEffect, useRef } from "react";
 
 import "prismjs/themes/prism.css";

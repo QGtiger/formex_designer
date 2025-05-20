@@ -47,6 +47,7 @@ export const useMaterialStore = create<MaterialState>(() => {
 
   const defaultProps = {
     placeholder: "请输入",
+    name: "表单项标题",
   };
 
   const materialList: MaterialItem[] = [

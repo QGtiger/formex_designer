@@ -1,7 +1,7 @@
 import { useMaterialStore } from "@/stores/useMaterialStore";
 import { useSchemaStore } from "@/stores/useSchemaStore";
-import { Empty, Form, Input, InputNumber } from "antd";
-import RichEditorBtn from "./RichEditorBtn";
+import { Empty, Form, Input, InputNumber, Switch } from "antd";
+import RichEditorBtn from "./components/RichEditorBtn";
 import BgSelector from "./components/bgSelector";
 import OptionsEditor from "./components/optionsEditor";
 
@@ -25,6 +25,8 @@ function renderFormElememt(setter: Setter) {
     return <BgSelector />;
   } else if (type === "optionseditor") {
     return <OptionsEditor />;
+  } else if (type === "switch") {
+    return <Switch />;
   }
 }
 

@@ -22,10 +22,9 @@ interface MaterialItem {
 type MaterialItemProps<T = any> = {
   id: string;
   code: string;
+
+  required?: boolean;
 } & T;
-
-
-
 
 interface FormexItem {
   code: string;

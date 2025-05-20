@@ -68,13 +68,19 @@ export default function PreviewDevFormex() {
     setHoverComponetId("");
   }, [selectedIndex]);
 
-  useKeyPress(["delete", "backspace"], (event) => {
-    if (selectedComponentId) {
-      event.preventDefault();
-      deleteFormexItemByComponentId(selectedComponentId);
-      setSelectedComponentId("");
+  useKeyPress(
+    ["delete", "backspace"],
+    (event) => {
+      if (selectedComponentId) {
+        event.preventDefault();
+        deleteFormexItemByComponentId(selectedComponentId);
+        setSelectedComponentId("");
+      }
+    },
+    {
+      target: formexDomRef,
     }
-  });
+  );
 
   function renderComponents(components?: FormexItem[]): React.ReactNode {
     if (!components) return null;
