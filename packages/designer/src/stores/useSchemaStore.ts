@@ -67,13 +67,6 @@ export const defaultSchema: FormexSchema = {
           code: "subtitle",
         },
         {
-          id: "input-1",
-          code: "input",
-          props: {
-            name: "表单项标题",
-          },
-        },
-        {
           id: "submit",
           code: "submit",
         },
