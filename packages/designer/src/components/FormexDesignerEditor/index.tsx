@@ -37,6 +37,7 @@ export default function FormexDesignerEditor(props: {
     initialSchema && setSchema(initialSchema);
 
     return () => {
+      console.log("FormexDesignerEditor unmount");
       // TODO : 组件卸载时清空数据 后续动态创建store 好了
       setSelectedComponentId("");
       setOverComponentId("");

@@ -7,7 +7,7 @@ import {
   CloudUploadOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
-import { DatePicker, Input, InputNumber } from "antd";
+import { Input, InputNumber } from "antd";
 import { create } from "zustand";
 import { FormItemHoc, FormItemLabelHoc, MaterialWrapperHoc } from "./utils";
 import Title from "./materials/title";

@@ -1,6 +1,6 @@
 {
   "name": "@formex/designer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A form designer by Formex",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

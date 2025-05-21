@@ -1,5 +1,12 @@
 import { create } from "zustand";
 
+function getNearNumByArr(arr: [number, number], num: number) {
+  const [min, max] = arr;
+  if (num < min) return min;
+  if (num > max) return max;
+  return num;
+}
+
 interface SchemaState {
   schema: FormexSchema;
   setSchema: (schema: FormexSchema) => void;
@@ -175,13 +182,14 @@ export const useSchemaStore = create<SchemaState & SchemaAction>((set, get) => {
       };
 
       const index = formItems.findIndex((it) => it.id === insertId);
-      if (index !== -1) {
-        const insertIndex = insertPlacement === "top" ? index : index + 1;
-        formItems.splice(insertIndex, 0, newItem);
-      } else {
-        // TODO 这里特殊处理一下，添加到倒数第二个
-        formItems.splice(formItems.length - 1, 0, newItem);
-      }
+
+      // TODO 只能添加 到 form 组件下 排除 title 和 subtitle
+      const insertIndex = getNearNumByArr(
+        [2, formItems.length - 1],
+        insertPlacement === "top" ? index : index + 1
+      );
+
+      formItems.splice(insertIndex, 0, newItem);
 
       setSelectedComponentId(newItem.id);
 

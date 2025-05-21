@@ -68,11 +68,17 @@ export default function PreviewDevFormex() {
     setHoverComponetId("");
   }, [selectedIndex]);
 
+  const selectedComponentMaterialItem =
+    getMaterialItemByComponentId(selectedComponentId, materialMap)! || {};
+
   useKeyPress(["delete", "backspace"], (event) => {
     if (selectedComponentId) {
       event.preventDefault();
-      deleteFormexItemByComponentId(selectedComponentId);
-      setSelectedComponentId("");
+      const { hidden } = selectedComponentMaterialItem;
+      if (!hidden) {
+        deleteFormexItemByComponentId(selectedComponentId);
+        setSelectedComponentId("");
+      }
     }
   });
 
@@ -149,10 +155,7 @@ export default function PreviewDevFormex() {
           containerClassName="edit-area"
           portalClassName="selected-mask"
           renderMask={(props) => {
-            const { icon, name } = getMaterialItemByComponentId(
-              selectedComponentId,
-              materialMap
-            )!;
+            const { icon, name, hidden } = selectedComponentMaterialItem;
             return (
               <div
                 style={{
@@ -179,16 +182,23 @@ export default function PreviewDevFormex() {
                         <div className="">{icon}</div>
                         <div>{name}</div>
                       </div>
-                      <div className="divider h-[12px] w-[1px] bg-white scale-x-50"></div>
-                      <Tooltip title="删除">
-                        <DeleteOutlined
-                          className="cursor-pointer"
-                          onClick={() => {
-                            deleteFormexItemByComponentId(selectedComponentId);
-                            setSelectedComponentId("");
-                          }}
-                        />
-                      </Tooltip>
+
+                      {!hidden && (
+                        <>
+                          <div className="divider h-[12px] w-[1px] bg-white scale-x-50"></div>
+                          <Tooltip title="删除">
+                            <DeleteOutlined
+                              className="cursor-pointer"
+                              onClick={() => {
+                                deleteFormexItemByComponentId(
+                                  selectedComponentId
+                                );
+                                setSelectedComponentId("");
+                              }}
+                            />
+                          </Tooltip>
+                        </>
+                      )}
                     </div>
                   </div>
                 </motion.div>
