@@ -65,6 +65,7 @@ export default function Setting() {
   }
   return (
     <div
+      key={selectedComponentId}
       className=" h-full overflow-auto p-4 px-6"
       onKeyDownCapture={(e) => e.stopPropagation()}
     >

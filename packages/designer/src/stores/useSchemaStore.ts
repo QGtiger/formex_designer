@@ -1,4 +1,5 @@
-import { create } from "zustand";
+import { createContext, useContext } from "react";
+import { create, createStore, useStore } from "zustand";
 
 function getNearNumByArr(arr: [number, number], num: number) {
   const [min, max] = arr;
@@ -39,196 +40,222 @@ interface SchemaAction {
   deleteFormexItemByComponentId: (componentId: string) => void;
 }
 
-export const useSchemaStore = create<SchemaState & SchemaAction>((set, get) => {
-  const getFormexItemsWithForm = () => {
-    const { schema } = get();
-    const { formItems } = schema;
+export interface SchemaStoreConfig {
+  initialSchema?: FormexSchema;
+  onChange?: (schema: FormexSchema) => void;
+}
 
-    return formItems.find((it) => it.id === "form")?.children || [];
-  };
-
-  const getFormexItemById = (
-    id: string,
-    formexItems: FormexItem[]
-  ): FormexItem | undefined => {
-    if (!id) return;
-
-    for (const item of formexItems) {
-      if (item.id == id) return item;
-      if (item.children && item.children.length > 0) {
-        const result = getFormexItemById(id, item.children);
-        if (result !== null) return result;
-      }
-    }
-    return;
-  };
-
-  const setSelectedComponentId: SchemaAction["setSelectedComponentId"] = (
-    componentId
-  ) => {
-    set((prev) => {
-      return {
-        ...prev,
-        selectedComponentId: componentId,
-      };
-    });
-  };
-
-  const getFormexItemByComponentId: SchemaAction["getFormexItemByComponentId"] =
-    (componentId) => {
-      return getFormexItemById(componentId, get().schema.formItems);
-    };
-
-  return {
-    schema: {
-      version: "1.0",
-      formItems: [
+const defaultSchema: FormexSchema = {
+  version: "1.0",
+  formItems: [
+    {
+      id: "banner",
+      code: "banner",
+    },
+    {
+      id: "form",
+      code: "form",
+      children: [
         {
-          id: "banner",
-          code: "banner",
+          id: "title",
+          code: "title",
         },
         {
-          id: "form",
-          code: "form",
-          children: [
-            {
-              id: "title",
-              code: "title",
-            },
-            {
-              id: "subtitle",
-              code: "subtitle",
-            },
-            {
-              id: "input-1",
-              code: "input",
-              props: {
-                name: "表单项标题",
-              },
-            },
-            {
-              id: "submit",
-              code: "submit",
-            },
-          ],
+          id: "subtitle",
+          code: "subtitle",
+        },
+        {
+          id: "input-1",
+          code: "input",
+          props: {
+            name: "表单项标题",
+          },
+        },
+        {
+          id: "submit",
+          code: "submit",
         },
       ],
     },
-    setSchema: (schema) => set({ schema }),
+  ],
+};
 
-    overComponentId: "",
-    overPlacement: "top",
-    setOverComponentId: (componentId) => {
-      set((prev) => {
-        return {
-          ...prev,
-          overComponentId: componentId,
-        };
-      });
-    },
-    setOverComponentPlacement: (placement) => {
-      set((prev) => {
-        return {
-          ...prev,
-          overPlacement: placement,
-        };
-      });
-    },
+export function createSchemaStore(config: SchemaStoreConfig) {
+  const { initialSchema = defaultSchema, onChange } = config;
+  const store = createStore<SchemaState & SchemaAction>((set, get) => {
+    const getFormexItemsWithForm = () => {
+      const { schema } = get();
+      const { formItems } = schema;
 
-    swapFormItem: (dragItemId: string, hoverItemId: string) => {
-      const { overPlacement } = get();
-      const formItems = getFormexItemsWithForm();
+      return formItems.find((it) => it.id === "form")?.children || [];
+    };
 
-      const dragIndex = formItems.findIndex((it) => it.id === dragItemId);
-      let hoverIndex = formItems.findIndex((it) => it.id === hoverItemId);
+    const getFormexItemById = (
+      id: string,
+      formexItems: FormexItem[]
+    ): FormexItem | undefined => {
+      if (!id) return;
 
-      if (dragIndex !== -1 && hoverIndex !== -1) {
-        // 拷贝一份
-        const dragItemClone = {
-          ...formItems[dragIndex],
-        };
-
-        formItems.splice(dragIndex, 1);
-
-        // 重新计算 hoverIndex
-        hoverIndex = formItems.findIndex((it) => it.id === hoverItemId);
-        if (hoverIndex !== -1) {
-          const insertIndex =
-            overPlacement === "top" ? hoverIndex : hoverIndex + 1;
-
-          formItems.splice(insertIndex, 0, dragItemClone);
+      for (const item of formexItems) {
+        if (item.id == id) return item;
+        if (item.children && item.children.length > 0) {
+          const result = getFormexItemById(id, item.children);
+          if (result !== null) return result;
         }
-
-        setSelectedComponentId(dragItemClone.id);
-
-        set({ ...get() });
       }
-    },
+      return;
+    };
 
-    insertFormItem(materialItem: MaterialItem) {
-      const { overComponentId, overPlacement, selectedComponentId } = get();
+    const setSelectedComponentId: SchemaAction["setSelectedComponentId"] = (
+      componentId
+    ) => {
+      set((prev) => {
+        return {
+          ...prev,
+          selectedComponentId: componentId,
+        };
+      });
+    };
 
-      const insertId = overComponentId || selectedComponentId;
-      const insertPlacement = overComponentId ? overPlacement : "bottom";
-
-      const formItems = getFormexItemsWithForm();
-
-      const newItem: FormexItem = {
-        code: materialItem.code,
-        id: `${materialItem.code}-${Date.now()}`,
-        props: {
-          ...materialItem.defaultProps,
-        },
+    const getFormexItemByComponentId: SchemaAction["getFormexItemByComponentId"] =
+      (componentId) => {
+        return getFormexItemById(componentId, get().schema.formItems);
       };
 
-      const index = formItems.findIndex((it) => it.id === insertId);
+    return {
+      schema: initialSchema,
+      setSchema: (schema) => set({ schema }),
 
-      // TODO 只能添加 到 form 组件下 排除 title 和 subtitle
-      const insertIndex = getNearNumByArr(
-        [2, formItems.length - 1],
-        insertPlacement === "top" ? index : index + 1
-      );
+      overComponentId: "",
+      overPlacement: "top",
+      setOverComponentId: (componentId) => {
+        set((prev) => {
+          return {
+            ...prev,
+            overComponentId: componentId,
+          };
+        });
+      },
+      setOverComponentPlacement: (placement) => {
+        set((prev) => {
+          return {
+            ...prev,
+            overPlacement: placement,
+          };
+        });
+      },
 
-      formItems.splice(insertIndex, 0, newItem);
+      swapFormItem: (dragItemId: string, hoverItemId: string) => {
+        const { overPlacement } = get();
+        const formItems = getFormexItemsWithForm();
 
-      setSelectedComponentId(newItem.id);
+        const dragIndex = formItems.findIndex((it) => it.id === dragItemId);
+        let hoverIndex = formItems.findIndex((it) => it.id === hoverItemId);
 
-      set({ ...get() });
-    },
+        if (dragIndex !== -1 && hoverIndex !== -1) {
+          // 拷贝一份
+          const dragItemClone = {
+            ...formItems[dragIndex],
+          };
 
-    selectedComponentId: "",
-    setSelectedComponentId,
-    getMaterialItemByComponentId: (componentId, materialMap) => {
-      const item = getFormexItemByComponentId(componentId);
-      if (!item) return;
+          formItems.splice(dragIndex, 1);
 
-      const materialItem = materialMap[item.code];
-      if (!materialItem) return;
+          // 重新计算 hoverIndex
+          hoverIndex = formItems.findIndex((it) => it.id === hoverItemId);
+          if (hoverIndex !== -1) {
+            const insertIndex =
+              overPlacement === "top" ? hoverIndex : hoverIndex + 1;
 
-      return materialItem;
-    },
-    getFormexItemByComponentId,
+            formItems.splice(insertIndex, 0, dragItemClone);
+          }
 
-    updateFormexItemByComponentId(componentId, values) {
-      const formexItem = getFormexItemByComponentId(componentId);
-      if (!formexItem) return;
-      formexItem.props = formexItem.props || {};
-      Object.assign(formexItem.props, values);
-      set({ ...get() });
-    },
+          setSelectedComponentId(dragItemClone.id);
 
-    getFormexItemIndexByComponentId(componentId) {
-      const formexItems = getFormexItemsWithForm();
-      return formexItems.findIndex((it) => it.id === componentId);
-    },
+          set({ ...get() });
+        }
+      },
 
-    deleteFormexItemByComponentId(componentId) {
-      const formexItems = getFormexItemsWithForm();
-      const index = formexItems.findIndex((it) => it.id === componentId);
-      if (index !== -1) {
-        formexItems.splice(index, 1);
+      insertFormItem(materialItem: MaterialItem) {
+        const { overComponentId, overPlacement, selectedComponentId } = get();
+
+        const insertId = overComponentId || selectedComponentId;
+        const insertPlacement = overComponentId ? overPlacement : "bottom";
+
+        const formItems = getFormexItemsWithForm();
+
+        const newItem: FormexItem = {
+          code: materialItem.code,
+          id: `${materialItem.code}-${Date.now()}`,
+          props: {
+            ...materialItem.defaultProps,
+          },
+        };
+
+        const index = formItems.findIndex((it) => it.id === insertId);
+
+        // TODO 只能添加 到 form 组件下 排除 title 和 subtitle
+        const insertIndex = getNearNumByArr(
+          [2, formItems.length - 1],
+          insertPlacement === "top" ? index : index + 1
+        );
+
+        formItems.splice(insertIndex, 0, newItem);
+
+        setSelectedComponentId(newItem.id);
+
         set({ ...get() });
-      }
-    },
-  };
-});
+      },
+
+      selectedComponentId: "",
+      setSelectedComponentId,
+      getMaterialItemByComponentId: (componentId, materialMap) => {
+        const item = getFormexItemByComponentId(componentId);
+        if (!item) return;
+
+        const materialItem = materialMap[item.code];
+        if (!materialItem) return;
+
+        return materialItem;
+      },
+      getFormexItemByComponentId,
+
+      updateFormexItemByComponentId(componentId, values) {
+        const formexItem = getFormexItemByComponentId(componentId);
+        if (!formexItem) return;
+        formexItem.props = formexItem.props || {};
+        Object.assign(formexItem.props, values);
+        set({ ...get() });
+      },
+
+      getFormexItemIndexByComponentId(componentId) {
+        const formexItems = getFormexItemsWithForm();
+        return formexItems.findIndex((it) => it.id === componentId);
+      },
+
+      deleteFormexItemByComponentId(componentId) {
+        const formexItems = getFormexItemsWithForm();
+        const index = formexItems.findIndex((it) => it.id === componentId);
+        if (index !== -1) {
+          formexItems.splice(index, 1);
+          set({ ...get() });
+        }
+      },
+    };
+  });
+
+  store.subscribe(({ schema }, { schema: prevSchema }) => {
+    if (JSON.stringify(schema) !== JSON.stringify(prevSchema)) {
+      onChange?.(schema);
+    }
+  });
+  return store;
+}
+
+export type SchemaStore = ReturnType<typeof createSchemaStore>;
+
+export const StoreContext = createContext<SchemaStore>({} as any);
+
+export const useSchemaStore = () => {
+  const store = useContext(StoreContext);
+  return useStore(store);
+};
