@@ -73,7 +73,7 @@ export default function PreviewDevFormex() {
 
   useKeyPress(["delete", "backspace"], (event) => {
     if (selectedComponentId) {
-      event.preventDefault();
+      // event.preventDefault();
       const { hidden } = selectedComponentMaterialItem;
       if (!hidden) {
         deleteFormexItemByComponentId(selectedComponentId);

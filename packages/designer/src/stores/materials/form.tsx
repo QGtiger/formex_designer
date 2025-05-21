@@ -81,19 +81,21 @@ export default function CustomForm(
   >
 ) {
   const { formIns, showSuccessPage } = FormexModel.useModel();
+  // @ts-ignore
+  const { defaultValue, primaryColor, ...restProps } = props;
   return (
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: props.primaryColor,
+          colorPrimary: primaryColor,
         },
       }}
     >
       <div className="px-4 md:px-10 pt-14 pb-20">
         {showSuccessPage ? (
-          <SuccessPage primaryColor={props.primaryColor} />
+          <SuccessPage primaryColor={primaryColor} />
         ) : (
-          <Form colon={false} layout="vertical" form={formIns} {...props}>
+          <Form colon={false} layout="vertical" form={formIns} {...restProps}>
             <div className="max-w-[600px] mx-auto">{props.children}</div>
           </Form>
         )}
