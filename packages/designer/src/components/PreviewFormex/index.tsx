@@ -4,14 +4,15 @@ import { ConfigProvider } from "antd";
 import classNames from "classnames";
 import React, { useRef } from "react";
 import zhCN from "antd/locale/zh_CN";
+import { defaultSchema } from "@/stores/useSchemaStore";
 
 export default function PreviewFormex(
   props: {
-    schema: FormexSchema;
+    schema?: FormexSchema;
   } & FormexModelProps
 ) {
   const materialMap = useMaterialMap();
-  const { formItems } = props.schema;
+  const { formItems } = props.schema || defaultSchema;
 
   const formexDomRef = useRef<HTMLDivElement>(null);
 

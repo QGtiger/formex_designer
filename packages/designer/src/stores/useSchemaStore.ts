@@ -47,7 +47,7 @@ export interface SchemaStoreConfig {
   onChange?: (schema: FormexSchema) => void;
 }
 
-const defaultSchema: FormexSchema = {
+export const defaultSchema: FormexSchema = {
   version: "1.0",
   formItems: [
     {
