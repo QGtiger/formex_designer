@@ -5,6 +5,8 @@ import RichEditorBtn from "./components/RichEditorBtn";
 import BgSelector from "./components/bgSelector";
 import OptionsEditor from "./components/optionsEditor";
 import DatePickerFormatSelector from "./components/DatePickerFormatSelector";
+import CustomColorPicker from "./components/CustomColorPicker";
+import { debounce } from "lodash-es";
 
 function renderFormElememt(setter: Setter) {
   const { type, componentProps } = setter;
@@ -30,6 +32,8 @@ function renderFormElememt(setter: Setter) {
     return <Switch />;
   } else if (type === "datepickerformatselelctor") {
     return <DatePickerFormatSelector />;
+  } else if (type === "colorpicker") {
+    return <CustomColorPicker />;
   }
 }
 
@@ -75,9 +79,9 @@ export default function Setting() {
           ...defaultProps,
           ...props,
         }}
-        onValuesChange={(changeValues) => {
+        onValuesChange={debounce((changeValues) => {
           updateFormexItemByComponentId(selectedComponentId, changeValues);
-        }}
+        }, 200)}
       >
         {configSetter.map((it) => {
           return (

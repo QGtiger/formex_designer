@@ -20,7 +20,9 @@ import { App, ConfigProvider } from "antd";
 import zhCN from "antd/locale/zh_CN";
 import { FormexModel } from "@/stores/FormexModel";
 
-const defaultObj = {};
+const defaultObj = {
+  disableSubmit: true,
+};
 
 export default function FormexDesignerEditor(
   props: {

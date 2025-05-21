@@ -1,7 +1,7 @@
 import { handleImageUpload } from "@/utils";
 import { InboxOutlined } from "@ant-design/icons";
 import type { UploadProps } from "antd";
-import { App, Upload } from "antd";
+import { App, Typography, Upload } from "antd";
 import { useEffect, useState } from "react";
 
 const { Dragger } = Upload;
@@ -82,13 +82,14 @@ export default function DraggerUpload(props: {
 
   return (
     <Dragger {...uploadProps} fileList={fileList}>
-      <p className="ant-upload-drag-icon">
-        <InboxOutlined />
-      </p>
-      <p className="ant-upload-text">请点击或拖拽文件到此区域上传</p>
-      <p className="ant-upload-hint">
-        支持单个或批量上传，严禁上传公司数据或其他隐私文件
-      </p>
+      <div className=" py-2">
+        <Typography.Text>请点击或拖拽文件到此区域上传</Typography.Text>
+      </div>
+      <div>
+        <Typography.Text type="secondary">
+          支持单个或批量上传，严禁上传公司数据或其他隐私文件
+        </Typography.Text>
+      </div>
     </Dragger>
   );
 }

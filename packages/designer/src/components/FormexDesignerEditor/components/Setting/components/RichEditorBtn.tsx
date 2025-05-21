@@ -16,6 +16,7 @@ import "prismjs/components/prism-clojure.js";
 
 import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
 import { handleImageUpload } from "@/utils";
+import { EditOutlined, FormOutlined } from "@ant-design/icons";
 
 function RichEditor({
   value,
@@ -109,7 +110,7 @@ export default function RichEditorBtn(props: {
     });
   };
   return (
-    <Button block type="primary" onClick={showModal}>
+    <Button block onClick={showModal} icon={<EditOutlined />}>
       编辑
     </Button>
   );

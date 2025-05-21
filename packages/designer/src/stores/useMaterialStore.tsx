@@ -59,6 +59,16 @@ export const useMaterialStore = create<MaterialState>(() => {
       desc: "表单容器组件",
       icon: <FormOutlined />,
       hidden: true,
+      defaultProps: {
+        primaryColor: "#000000",
+      },
+      configSetter: [
+        {
+          type: "colorpicker",
+          name: "primaryColor",
+          label: "主题色调",
+        },
+      ],
       dev: MaterialWrapperHoc(CustomForm),
       prod: CustomForm,
     },
@@ -134,6 +144,11 @@ export const useMaterialStore = create<MaterialState>(() => {
           type: "input",
           name: "text",
           label: "按钮文案",
+        },
+        {
+          type: "colorpicker",
+          name: "textColor",
+          label: "文字颜色",
         },
       ],
       dev: MaterialWrapperHoc(Submit),
