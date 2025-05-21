@@ -1,6 +1,7 @@
 import { deepClone } from "@/utils";
 import { createContext, useContext } from "react";
-import { create, createStore, useStore } from "zustand";
+import { createStore, useStore } from "zustand";
+import { throttle } from "lodash-es";
 
 function getNearNumByArr(arr: [number, number], num: number) {
   const [min, max] = arr;
@@ -123,6 +124,11 @@ export function createSchemaStore(config: SchemaStoreConfig) {
         return getFormexItemById(componentId, get().schema.formItems);
       };
 
+    const forceUpdate = throttle(() => {
+      set({ ...get() });
+      onChange?.(get().schema);
+    }, 200);
+
     return {
       schema: deepClone(initialSchema),
       setSchema: (schema) => set({ schema }),
@@ -172,7 +178,7 @@ export function createSchemaStore(config: SchemaStoreConfig) {
 
           setSelectedComponentId(dragItemClone.id);
 
-          set({ ...get() });
+          forceUpdate();
         }
       },
 
@@ -204,7 +210,7 @@ export function createSchemaStore(config: SchemaStoreConfig) {
 
         setSelectedComponentId(newItem.id);
 
-        set({ ...get() });
+        forceUpdate();
       },
 
       selectedComponentId: "",
@@ -225,7 +231,8 @@ export function createSchemaStore(config: SchemaStoreConfig) {
         if (!formexItem) return;
         formexItem.props = formexItem.props || {};
         Object.assign(formexItem.props, values);
-        set({ ...get() });
+
+        forceUpdate();
       },
 
       getFormexItemIndexByComponentId(componentId) {
@@ -238,16 +245,10 @@ export function createSchemaStore(config: SchemaStoreConfig) {
         const index = formexItems.findIndex((it) => it.id === componentId);
         if (index !== -1) {
           formexItems.splice(index, 1);
-          set({ ...get() });
+          forceUpdate();
         }
       },
     };
-  });
-
-  store.subscribe(({ schema }, { schema: prevSchema }) => {
-    if (JSON.stringify(schema) !== JSON.stringify(prevSchema)) {
-      onChange?.(schema);
-    }
   });
   return store;
 }

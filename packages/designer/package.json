@@ -40,6 +40,7 @@
     "classnames": "^2.5.1",
     "dayjs": "^1.11.13",
     "framer-motion": "^12.12.1",
+    "lodash-es": "^4.17.21",
     "prismjs": "^1.30.0",
     "react": "^19.1.0",
     "react-dnd": "^16.0.1",
@@ -48,6 +49,7 @@
     "zustand": "^5.0.4"
   },
   "devDependencies": {
+    "@types/lodash-es": "^4.17.12",
     "@types/node": "^22.15.19",
     "@types/prismjs": "^1.26.5",
     "@types/react": "^19.1.2",

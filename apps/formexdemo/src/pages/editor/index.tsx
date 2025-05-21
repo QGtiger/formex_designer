@@ -24,6 +24,7 @@ export default function EditorPage() {
     <ConfigProvider theme={{ token: { colorPrimary: "#7f70f5" } }}>
       <FormDesignerEditor
         onChange={(schema) => {
+          console.log("schema", schema);
           schemaRef.current = schema;
           setSchemaByLocalStorage(schema);
         }}
