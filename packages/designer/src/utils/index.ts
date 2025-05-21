@@ -53,3 +53,7 @@ export const handleImageUpload = async (
     callback("", "上传失败");
   }
 };
+
+export function deepClone<T>(obj: T): T {
+  return JSON.parse(JSON.stringify(obj));
+}

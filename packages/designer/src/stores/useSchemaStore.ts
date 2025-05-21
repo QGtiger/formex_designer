@@ -1,3 +1,4 @@
+import { deepClone } from "@/utils";
 import { createContext, useContext } from "react";
 import { create, createStore, useStore } from "zustand";
 
@@ -123,7 +124,7 @@ export function createSchemaStore(config: SchemaStoreConfig) {
       };
 
     return {
-      schema: initialSchema,
+      schema: deepClone(initialSchema),
       setSchema: (schema) => set({ schema }),
 
       overComponentId: "",
