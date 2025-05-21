@@ -14,7 +14,7 @@ function getSchemaByLocalStorage() {
   if (schema) {
     return JSON.parse(schema);
   }
-  return null;
+  return;
 }
 
 export default function EditorPage() {
