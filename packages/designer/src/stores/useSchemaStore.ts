@@ -1,7 +1,7 @@
 import { deepClone } from "@/utils";
 import { createContext, useContext } from "react";
 import { createStore, useStore } from "zustand";
-import { throttle } from "lodash-es";
+import { debounce } from "lodash-es";
 
 function getNearNumByArr(arr: [number, number], num: number) {
   const [min, max] = arr;
@@ -124,7 +124,7 @@ export function createSchemaStore(config: SchemaStoreConfig) {
         return getFormexItemById(componentId, get().schema.formItems);
       };
 
-    const forceUpdate = throttle(() => {
+    const forceUpdate = debounce(() => {
       set({ ...get() });
       onChange?.(get().schema);
     }, 200);
