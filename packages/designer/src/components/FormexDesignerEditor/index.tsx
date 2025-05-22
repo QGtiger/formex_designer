@@ -12,7 +12,7 @@ import {
   StoreContext,
   createSchemaStore,
 } from "@/stores/useSchemaStore";
-import { App, ConfigProvider } from "antd";
+import { ConfigProvider } from "antd";
 
 import zhCN from "antd/locale/zh_CN";
 import { FormexModel } from "@/stores/FormexModel";

@@ -1,4 +1,4 @@
-import { App, Button } from "antd";
+import { Button, Modal } from "antd";
 import { Editor } from "@toast-ui/react-editor";
 
 import "@toast-ui/editor/toastui-editor.css";
@@ -63,7 +63,7 @@ export default function RichEditorBtn(props: {
   value?: string;
   onChange?: (value: string) => void;
 }) {
-  const { modal } = App.useApp();
+  const [modal, modalHolder] = Modal.useModal();
 
   const showModal = () => {
     let content = props.value || "";
@@ -112,6 +112,7 @@ export default function RichEditorBtn(props: {
   return (
     <Button block onClick={showModal} icon={<EditOutlined />}>
       编辑
+      {modalHolder}
     </Button>
   );
 }

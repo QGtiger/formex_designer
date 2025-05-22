@@ -17,7 +17,7 @@ import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { createRef, useEffect, useState } from "react";
 import classNames from "classnames";
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
-import { App, Form, Input } from "antd";
+import { Form, Input, Modal } from "antd";
 import { FormInstance } from "antd/lib";
 
 interface Option {
@@ -103,7 +103,7 @@ const SortableList = ({
   items: Option[];
   onItemsChange?: (items: Option[]) => void;
 }) => {
-  const { modal } = App.useApp();
+  const [modal, modalHolder] = Modal.useModal();
   const [listItems, setListItems] = useState(
     items.map((item) => ({ id: `item-${generateId()}`, value: item }))
   );
@@ -236,6 +236,7 @@ const SortableList = ({
       >
         <PlusOutlined />
       </div>
+      {modalHolder}
     </div>
   );
 };
@@ -248,9 +249,5 @@ export default function OptionsEditor({
   onChange?: (value: Option[]) => void;
 }) {
   // 添加APP 组件树 修改。 Setting => onKeyDownCapture 可以被捕获
-  return (
-    <App>
-      <SortableList items={value} onItemsChange={onChange} />
-    </App>
-  );
+  return <SortableList items={value} onItemsChange={onChange} />;
 }
