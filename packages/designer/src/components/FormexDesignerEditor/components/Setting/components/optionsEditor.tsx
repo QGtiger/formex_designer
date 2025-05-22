@@ -201,7 +201,7 @@ const SortableList = ({
           items={listItems}
           strategy={verticalListSortingStrategy}
         >
-          <div className=" rounded-md border border-gray-300 px-1">
+          <div className=" rounded-md border border-gray-300 border-solid px-1">
             {listItems.length ? (
               listItems.map((item) => (
                 <div

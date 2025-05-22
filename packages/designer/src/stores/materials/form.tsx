@@ -11,9 +11,9 @@ function SuccessPage({ primaryColor }: { primaryColor: string }) {
   const { successText, onReFill } = FormexModel.useModel();
   return (
     <div className="flex flex-col">
-      <div className="container mx-auto px-4 mt-6 sm:mt-10 ">
+      <div className="container mx-auto px-4 mt-6 sm:mt-10  w-[100%]">
         <div
-          className="bg-white rounded-lg  shadow-t p-8 max-w-3xl mx-auto"
+          className="bg-white rounded-lg  shadow-t px-4 py-8 md:p-8 max-w-3xl mx-auto"
           style={{
             boxShadow: "-2px 3px 10px 2px #d9d9d9",
           }}
@@ -37,7 +37,7 @@ function SuccessPage({ primaryColor }: { primaryColor: string }) {
             extra={[
               <div
                 key="actions"
-                className="flex flex-col sm:flex-row justify-center gap-4 mt-8"
+                className="flex flex-col md:flex-row justify-center gap-4 mt-8"
               >
                 <Button
                   type="primary"
@@ -60,7 +60,7 @@ function SuccessPage({ primaryColor }: { primaryColor: string }) {
             ]}
           />
 
-          <div className="mt-8 border-t pt-6 text-center text-gray-500">
+          <div className="mt-4 border-t pt-6 text-center text-gray-500">
             <p>表单编号: SF-{new Date().getTime().toString().slice(-8)}</p>
             <p className="mt-2">
               提交时间: {new Date().toLocaleString("zh-CN")}
