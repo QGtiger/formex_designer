@@ -48,62 +48,60 @@ export default function FormexDesignerEditor(
 
   return (
     <ConfigProvider locale={zhCN}>
-      <App>
-        <StoreContext.Provider value={storeRef.current}>
-          <FormexModel.Provider value={defaultObj}>
-            <DndProvider backend={HTML5Backend}>
-              <div
-                className="h-[100vh] w-[100%] flex flex-col"
-                style={{
-                  height: height ? `${height}px` : "100vh",
-                }}
+      <StoreContext.Provider value={storeRef.current}>
+        <FormexModel.Provider value={defaultObj}>
+          <DndProvider backend={HTML5Backend}>
+            <div
+              className="h-[100vh] w-[100%] flex flex-col"
+              style={{
+                height: height ? `${height}px` : "100vh",
+              }}
+            >
+              <Header title={title} rightContent={headerMenu} />
+              <PanelGroup direction="horizontal" autoSaveId="persistence">
+                <Panel defaultSize={30} minSize={15}>
+                  <Material />
+                </Panel>
+                <PanelResizeHandle className="w-[1px] bg-gray-300" />
+                <Panel minSize={36} className="bg-[#e5e8ec]">
+                  <EditArea />
+                </Panel>
+                <PanelResizeHandle className="w-[1px] bg-gray-300" />
+                <Panel defaultSize={30} minSize={20}>
+                  <Setting />
+                </Panel>
+              </PanelGroup>
+              {/* <Allotment
+                defaultSizes={[100]}
+                id="allotment-container"
+                className="opacity-0"
               >
-                <Header title={title} rightContent={headerMenu} />
-                <PanelGroup direction="horizontal" autoSaveId="persistence">
-                  <Panel defaultSize={30} minSize={15}>
-                    <Material />
-                  </Panel>
-                  <PanelResizeHandle className="w-[1px] bg-gray-300" />
-                  <Panel minSize={36} className="bg-[#e5e8ec]">
-                    <EditArea />
-                  </Panel>
-                  <PanelResizeHandle className="w-[1px] bg-gray-300" />
-                  <Panel defaultSize={30} minSize={20}>
-                    <Setting />
-                  </Panel>
-                </PanelGroup>
-                {/* <Allotment
-                  defaultSizes={[100]}
-                  id="allotment-container"
-                  className="opacity-0"
+                <Allotment.Pane
+                  preferredSize={280}
+                  maxSize={400}
+                  minSize={200}
                 >
-                  <Allotment.Pane
-                    preferredSize={280}
-                    maxSize={400}
-                    minSize={200}
-                  >
-                    <Material />
-                  </Allotment.Pane>
-                  <Allotment.Pane className="bg-[#e5e8ec]">
-                    <EditArea />
-                  </Allotment.Pane>
-                  <Allotment.Pane
-                    preferredSize={340}
-                    maxSize={450}
-                    minSize={300}
-                  >
-                    <Setting />
-                  </Allotment.Pane>
-                </Allotment> */}
-              </div>
+                  <Material />
+                </Allotment.Pane>
+                <Allotment.Pane className="bg-[#e5e8ec]">
+                  <EditArea />
+                </Allotment.Pane>
+                <Allotment.Pane
+                  preferredSize={340}
+                  maxSize={450}
+                  minSize={300}
+                >
+                  <Setting />
+                </Allotment.Pane>
+              </Allotment> */}
+            </div>
 
-              {/* <div className=" relative">
-                <DragLayer />
-              </div> */}
-            </DndProvider>
-          </FormexModel.Provider>
-        </StoreContext.Provider>
-      </App>
+            {/* <div className=" relative">
+              <DragLayer />
+            </div> */}
+          </DndProvider>
+        </FormexModel.Provider>
+      </StoreContext.Provider>
     </ConfigProvider>
   );
 }
