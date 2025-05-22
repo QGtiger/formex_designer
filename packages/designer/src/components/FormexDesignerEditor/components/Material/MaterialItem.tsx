@@ -16,7 +16,7 @@ export default function MaterialItem({ it }: { it: MaterialItem }) {
   return (
     <div
       ref={ref}
-      className="py-2 px-4 flex gap-2 border-gray-300 border rounded-md hover:bg-gray-100 hover:shadow-md cursor-pointer text-sm"
+      className="py-2 px-4 flex gap-2 border-gray-300 border border-solid rounded-md hover:bg-gray-100 hover:shadow-md cursor-pointer text-sm"
       key={it.code}
       onClick={() => {
         insertFormItem(it);
