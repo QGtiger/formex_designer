@@ -110,9 +110,11 @@ export default function RichEditorBtn(props: {
     });
   };
   return (
-    <Button block onClick={showModal} icon={<EditOutlined />}>
-      编辑
+    <div>
+      <Button block onClick={showModal} icon={<EditOutlined />}>
+        编辑
+      </Button>
       {modalHolder}
-    </Button>
+    </div>
   );
 }
