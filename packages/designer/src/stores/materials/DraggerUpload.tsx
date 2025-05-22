@@ -1,7 +1,7 @@
 import { handleImageUpload } from "@/utils";
 import { InboxOutlined } from "@ant-design/icons";
 import type { UploadProps } from "antd";
-import { App, Typography, Upload } from "antd";
+import { message, Typography, Upload } from "antd";
 import { useEffect, useState } from "react";
 
 const { Dragger } = Upload;
@@ -20,7 +20,6 @@ export default function DraggerUpload(props: {
   value: CustomUploadFile[];
 }) {
   const { onChange, value } = props;
-  const { message } = App.useApp();
   const [fileList, setFileList] = useState<CustomUploadFile[]>(value || []);
 
   const uploadProps: UploadProps = {

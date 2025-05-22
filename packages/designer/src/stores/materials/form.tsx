@@ -16,6 +16,7 @@ function SuccessPage({ primaryColor }: { primaryColor: string }) {
           className="bg-white rounded-lg  shadow-t px-4 py-8 md:p-8 max-w-3xl mx-auto"
           style={{
             boxShadow: "-2px 3px 10px 2px #d9d9d9",
+            boxSizing: "border-box",
           }}
         >
           <Result

@@ -4,7 +4,7 @@ function uploadFile(config: { blob: Blob; name: string }): Promise<string> {
   formData.append("filename", config.name);
 
   // TODO 先用测试环境的
-  return fetch("https://test-front-gw.yingdao.com/gw-api/upload/file", {
+  return fetch("https://front-gw.yingdao.com/gw-api/upload/file", {
     headers: {
       domain: "front-gw.yingdao.com",
       ContentType: "multipart/form-data",
