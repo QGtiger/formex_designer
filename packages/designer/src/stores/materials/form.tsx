@@ -11,12 +11,16 @@ function SuccessPage({ primaryColor }: { primaryColor: string }) {
   const { successText, onReFill } = FormexModel.useModel();
   return (
     <div className="flex flex-col">
-      <div className="container mx-auto px-4 mt-6 sm:mt-10  w-[100%]">
+      <div
+        className="container mx-auto px-4 mt-6 sm:mt-10  w-[100%]"
+        style={{
+          boxSizing: "border-box",
+        }}
+      >
         <div
           className="bg-white rounded-lg  shadow-t px-4 py-8 md:p-8 max-w-3xl mx-auto"
           style={{
             boxShadow: "-2px 3px 10px 2px #d9d9d9",
-            boxSizing: "border-box",
           }}
         >
           <Result

@@ -1,7 +1,6 @@
 import { handleImageUpload } from "@/utils";
-import { InboxOutlined } from "@ant-design/icons";
 import type { UploadProps } from "antd";
-import { message, Typography, Upload } from "antd";
+import { Typography, Upload } from "antd";
 import { useEffect, useState } from "react";
 
 const { Dragger } = Upload;
@@ -44,9 +43,9 @@ export default function DraggerUpload(props: {
 
       handleImageUpload(file, (url) => {
         if (url) {
-          message.success(`文件 ${file.name} 上传成功`);
+          console.log(`文件 ${file.name} 上传成功`);
         } else {
-          message.error(`文件 ${file.name} 上传失败`);
+          console.error(`文件 ${file.name} 上传失败`);
         }
         setFileList((prev) => {
           return prev.map((item) => {
