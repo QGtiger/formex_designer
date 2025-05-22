@@ -3,9 +3,6 @@ import EditArea from "./components/EditArea";
 import Setting from "./components/Setting";
 
 import Header from "./components/Header";
-
-import { Allotment } from "allotment";
-import "allotment/dist/style.css";
 import { useEffect, useRef } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -19,6 +16,8 @@ import { App, ConfigProvider } from "antd";
 
 import zhCN from "antd/locale/zh_CN";
 import { FormexModel } from "@/stores/FormexModel";
+import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
+import DragLayer from "./DragLayer";
 
 const defaultObj = {
   disableSubmit: true,
@@ -38,14 +37,14 @@ export default function FormexDesignerEditor(
     storeRef.current = createSchemaStore(props);
   }
 
-  useEffect(() => {
-    const ele = document.getElementById("allotment-container");
-    if (ele) {
-      setTimeout(() => {
-        ele.style.opacity = "1";
-      }, 50);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const ele = document.getElementById("allotment-container");
+  //   if (ele) {
+  //     setTimeout(() => {
+  //       ele.style.opacity = "1";
+  //     }, 50);
+  //   }
+  // }, []);
 
   return (
     <ConfigProvider locale={zhCN}>
@@ -60,7 +59,20 @@ export default function FormexDesignerEditor(
                 }}
               >
                 <Header title={title} rightContent={headerMenu} />
-                <Allotment
+                <PanelGroup direction="horizontal" autoSaveId="persistence">
+                  <Panel defaultSize={30} minSize={15}>
+                    <Material />
+                  </Panel>
+                  <PanelResizeHandle className="w-[1px] bg-gray-300" />
+                  <Panel minSize={36} className="bg-[#e5e8ec]">
+                    <EditArea />
+                  </Panel>
+                  <PanelResizeHandle className="w-[1px] bg-gray-300" />
+                  <Panel defaultSize={30} minSize={20}>
+                    <Setting />
+                  </Panel>
+                </PanelGroup>
+                {/* <Allotment
                   defaultSizes={[100]}
                   id="allotment-container"
                   className="opacity-0"
@@ -82,8 +94,12 @@ export default function FormexDesignerEditor(
                   >
                     <Setting />
                   </Allotment.Pane>
-                </Allotment>
+                </Allotment> */}
               </div>
+
+              {/* <div className=" relative">
+                <DragLayer />
+              </div> */}
             </DndProvider>
           </FormexModel.Provider>
         </StoreContext.Provider>

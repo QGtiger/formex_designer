@@ -247,5 +247,10 @@ export default function OptionsEditor({
   value?: Option[];
   onChange?: (value: Option[]) => void;
 }) {
-  return <SortableList items={value} onItemsChange={onChange} />;
+  // 添加APP 组件树 修改。 Setting => onKeyDownCapture 可以被捕获
+  return (
+    <App>
+      <SortableList items={value} onItemsChange={onChange} />
+    </App>
+  );
 }

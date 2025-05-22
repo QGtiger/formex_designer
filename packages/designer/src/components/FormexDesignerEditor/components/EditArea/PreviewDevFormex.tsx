@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { DeleteOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
 import { useKeyPress } from "ahooks";
+import { EditAreaCls } from "./constant";
 
 export default function PreviewDevFormex() {
   const {
@@ -109,7 +110,7 @@ export default function PreviewDevFormex() {
   return (
     <div
       onClick={handleClick}
-      className="edit-area relative w-full min-h-full bg-white   rounded-xl"
+      className={`${EditAreaCls} relative w-full min-h-full bg-white   rounded-xl`}
       ref={formexDomRef}
     >
       <div className={classNames("")}>{renderComponents(formItems)}</div>
@@ -117,7 +118,7 @@ export default function PreviewDevFormex() {
       {hoverComponentId && (
         <HoverMask
           componentId={hoverComponentId}
-          containerClassName="edit-area"
+          containerClassName={EditAreaCls}
           portalClassName="hover-mask"
         />
       )}
@@ -127,7 +128,7 @@ export default function PreviewDevFormex() {
       {overComponentId && (
         <HoverMask
           componentId={overComponentId}
-          containerClassName="edit-area"
+          containerClassName={EditAreaCls}
           portalClassName="over-line"
           renderMask={(props) => {
             return (
@@ -152,7 +153,7 @@ export default function PreviewDevFormex() {
         <HoverMask
           key={selectedIndex}
           componentId={selectedComponentId}
-          containerClassName="edit-area"
+          containerClassName={EditAreaCls}
           portalClassName="selected-mask"
           renderMask={(props) => {
             const { icon, name, hidden } = selectedComponentMaterialItem;

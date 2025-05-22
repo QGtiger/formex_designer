@@ -6,13 +6,12 @@ import {
   CheckCircleFilled,
   HomeOutlined,
 } from "@ant-design/icons";
-import Link from "antd/es/typography/Link";
 
 function SuccessPage({ primaryColor }: { primaryColor: string }) {
   const { successText, onReFill } = FormexModel.useModel();
   return (
     <div className="flex flex-col">
-      <div className="container mx-auto px-4 mt-6 sm:mt-10 z-10">
+      <div className="container mx-auto px-4 mt-6 sm:mt-10 ">
         <div
           className="bg-white rounded-lg  shadow-t p-8 max-w-3xl mx-auto"
           style={{

@@ -16,10 +16,8 @@ export default function Submit(
       style={{
         color: props.textColor,
       }}
-      onClickCapture={(e) => {
-        if (disableSubmit) {
-          e.preventDefault();
-        } else {
+      onClick={(e) => {
+        if (!disableSubmit) {
           onFormexFinish();
         }
       }}

@@ -12,7 +12,7 @@ export default function EditArea() {
         </div> */}
         <div className="relative bg-white shadow-2xl rounded-xl  w-[800px] flex flex-col h-full">
           <div className="h flex justify-center relative bg-[#212936] p-2 flex-shrink-0 rounded-t-xl overflow-hidden">
-            <div className=" absolute flex gap-1.5 left-4 top-4 z-10">
+            <div className=" absolute flex gap-1.5 left-4 top-4">
               <div className="circle rounded-full bg-[#686e77] w-3 h-3"></div>
               <div className="circle rounded-full bg-[#565c66] w-3 h-3"></div>
               <div className="circle rounded-full bg-[#454b56] w-3 h-3"></div>
@@ -21,7 +21,7 @@ export default function EditArea() {
               表单预览
             </div>
           </div>
-          <main className="z-10 h-1 flex-1">
+          <main className=" h-1 flex-1">
             <PreviewDevFormex />
           </main>
         </div>

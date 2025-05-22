@@ -3,6 +3,7 @@ import { useMaterialStore } from "../useMaterialStore";
 import { useDrag, useDrop } from "react-dnd";
 import { useMount } from "ahooks";
 import { useSchemaStore } from "../useSchemaStore";
+import { getEmptyImage } from "react-dnd-html5-backend";
 
 interface ItemType {
   code: string;
@@ -71,7 +72,7 @@ export default function MaterialWrapper(
     },
   });
 
-  const [, drag] = useDrag({
+  const [, drag, dragPreview] = useDrag({
     type: props.code,
     item: (monitor) => {
       console.log("drag", monitor);
@@ -89,8 +90,11 @@ export default function MaterialWrapper(
   });
 
   useMount(() => {
-    materialItem.hidden || drop(ref);
-    materialItem.hidden || drag(ref);
+    if (!materialItem.hidden) {
+      drop(ref);
+      drag(ref);
+      // dragPreview(getEmptyImage());
+    }
   });
 
   useEffect(() => {
