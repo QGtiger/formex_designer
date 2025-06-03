@@ -1,6 +1,13 @@
 import { ColorPicker, theme } from "antd";
 import { FormexItemEditorProps } from "./type";
-import { generate, green, presetPalettes, red, blue } from "@ant-design/colors";
+import {
+  generate,
+  green,
+  presetPalettes,
+  red,
+  blue,
+  purple,
+} from "@ant-design/colors";
 
 import type { ColorPickerProps } from "antd";
 
@@ -18,9 +25,10 @@ export default function CustomColorPicker(props: FormexItemEditorProps) {
   const { onChange } = props;
   const { token } = theme.useToken();
   const presets = genPresets({
-    primary: generate(token.colorPrimary),
     green,
     blue,
+    red,
+    purple,
   });
   return (
     <ColorPicker

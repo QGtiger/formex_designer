@@ -7,11 +7,11 @@ export default function MaterialItem({ it }: { it: MaterialItem }) {
   const ref = useRef<HTMLDivElement>(null);
   const { insertFormItem } = useSchemaStore();
 
-  useMaterialDrag({
-    type: code,
-    it,
-    ref,
-  });
+  // useMaterialDrag({
+  //   type: code,
+  //   it,
+  //   ref,
+  // });
 
   return (
     <div

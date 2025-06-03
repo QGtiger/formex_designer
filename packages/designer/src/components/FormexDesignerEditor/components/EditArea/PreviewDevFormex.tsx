@@ -72,16 +72,16 @@ export default function PreviewDevFormex() {
   const selectedComponentMaterialItem =
     getMaterialItemByComponentId(selectedComponentId, materialMap)! || {};
 
-  useKeyPress(["delete", "backspace"], (event) => {
-    if (selectedComponentId) {
-      // event.preventDefault();
-      const { hidden } = selectedComponentMaterialItem;
-      if (!hidden) {
-        deleteFormexItemByComponentId(selectedComponentId);
-        setSelectedComponentId("");
-      }
-    }
-  });
+  // useKeyPress(["delete", "backspace"], (event) => {
+  //   if (selectedComponentId) {
+  //     // event.preventDefault();
+  //     const { hidden } = selectedComponentMaterialItem;
+  //     if (!hidden) {
+  //       deleteFormexItemByComponentId(selectedComponentId);
+  //       setSelectedComponentId("");
+  //     }
+  //   }
+  // });
 
   function renderComponents(components?: FormexItem[]): React.ReactNode {
     if (!components) return null;

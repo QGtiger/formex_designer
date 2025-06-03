@@ -225,7 +225,12 @@ const SortableList = ({
                 </div>
               ))
             ) : (
-              <div className="text-gray-400 text-sm p-2">暂无选项, 请添加</div>
+              <div
+                className="text-gray-400 text-sm p-2 cursor-pointer "
+                onClick={addItem}
+              >
+                暂无选项, 请添加
+              </div>
             )}
           </div>
         </SortableContext>

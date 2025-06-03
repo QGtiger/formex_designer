@@ -60,7 +60,7 @@ export const useMaterialStore = create<MaterialState>(() => {
       icon: <FormOutlined />,
       hidden: true,
       defaultProps: {
-        primaryColor: "#000000",
+        primaryColor: "#0958d9",
       },
       configSetter: [
         {
@@ -113,18 +113,18 @@ export const useMaterialStore = create<MaterialState>(() => {
     },
     {
       code: "subtitle",
-      name: "副标题",
-      desc: "表单副标题",
+      name: "表单描述",
+      desc: "表单描述",
       icon: <IconFont type="icon-subtitle" />,
       hidden: true,
       defaultProps: {
-        text: "表单副标题",
+        text: "表单描述",
       },
       configSetter: [
         {
           type: "ricktext",
           name: "text",
-          label: "副标题文案",
+          label: "表单描述",
         },
       ],
       dev: MaterialWrapperHoc(SubTitle),
