@@ -69,7 +69,7 @@ export default function RichEditorBtn(props: {
     let content = props.value || "";
     modal.confirm({
       icon: null,
-      title: "Formex 富文本编辑器",
+      title: "富文本编辑器",
       width: 1200,
       centered: true,
       content: (
@@ -82,6 +82,8 @@ export default function RichEditorBtn(props: {
           />
         </div>
       ),
+      okText: "保存",
+      cancelText: "取消",
       onOk() {
         props.onChange?.(content);
       },

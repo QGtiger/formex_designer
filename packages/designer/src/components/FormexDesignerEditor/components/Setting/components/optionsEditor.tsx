@@ -165,6 +165,8 @@ const SortableList = ({
           </Form.Item>
         </Form>
       ),
+      okText: "保存",
+      cancelText: "取消",
       async onOk() {
         const values = await formRef.current?.validateFields();
         if (values) {
