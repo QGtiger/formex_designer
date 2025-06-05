@@ -15,15 +15,20 @@ import Prism from "prismjs";
 import "prismjs/components/prism-clojure.js";
 
 import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
-import { handleImageUpload } from "@/utils";
-import { EditOutlined, FormOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
+import { FormexModel } from "@/stores/FormexModel";
 
 function RichEditor({
   value,
   onChange,
+  handleImageUpload,
 }: {
   value?: string;
   onChange?: (value: string) => void;
+  handleImageUpload?: (
+    file: File,
+    callback: (url: string, desc: string) => void
+  ) => void;
 }) {
   const editorRef = useRef<Editor>(null);
 
@@ -48,8 +53,8 @@ function RichEditor({
       height={`${window.innerHeight - 300}px`}
       language="zh-CN"
       hooks={{
-        // @ts-ignore
-        addImageBlobHook: handleImageUpload,
+        // @ts-expect-error
+        addImageBlobHook: handleImageUpload, // handleImageUpload,
       }}
       placeholder="请输入内容"
       initialValue={value}
@@ -64,6 +69,7 @@ export default function RichEditorBtn(props: {
   onChange?: (value: string) => void;
 }) {
   const [modal, modalHolder] = Modal.useModal();
+  const { handleImageUpload } = FormexModel.useModel();
 
   const showModal = () => {
     let content = props.value || "";
@@ -79,6 +85,7 @@ export default function RichEditorBtn(props: {
             onChange={(s) => {
               content = s;
             }}
+            handleImageUpload={handleImageUpload}
           />
         </div>
       ),

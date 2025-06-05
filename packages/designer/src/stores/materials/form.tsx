@@ -66,7 +66,7 @@ function SuccessPage({ primaryColor }: { primaryColor: string }) {
           />
 
           <div className="mt-4 border-t pt-6 text-center text-gray-500">
-            <p>表单编号: SF-{new Date().getTime().toString().slice(-8)}</p>
+            {/* <p>表单编号: SF-{new Date().getTime().toString().slice(-8)}</p> */}
             <p className="mt-2">
               提交时间: {new Date().toLocaleString("zh-CN")}
             </p>
@@ -99,7 +99,7 @@ export default function CustomForm(
         {showSuccessPage ? (
           <SuccessPage primaryColor={primaryColor} />
         ) : (
-          <Form colon={false} layout="vertical" form={formIns} {...restProps}>
+          <Form layout="vertical" form={formIns} {...restProps}>
             <div className="max-w-[600px] mx-auto">{props.children}</div>
           </Form>
         )}

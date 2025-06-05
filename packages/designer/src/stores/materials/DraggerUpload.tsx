@@ -1,7 +1,7 @@
-import { handleImageUpload } from "@/utils";
 import type { UploadProps } from "antd";
 import { Typography, Upload } from "antd";
 import { useEffect, useState } from "react";
+import { FormexModel } from "../FormexModel";
 
 const { Dragger } = Upload;
 
@@ -20,13 +20,17 @@ export default function DraggerUpload(props: {
 }) {
   const { onChange, value } = props;
   const [fileList, setFileList] = useState<CustomUploadFile[]>(value || []);
+  const { showErrorMessage, handleImageUpload } = FormexModel.useModel();
 
   const uploadProps: UploadProps = {
     name: "file",
     multiple: true,
-    beforeUpload(file, fileList) {
-      console.log("beforeUpload", file, fileList);
-
+    beforeUpload(file) {
+      // 单个最多五个，最大20M
+      if (file.size > 20 * 1024 * 1024) {
+        showErrorMessage?.("单个文件不能超过20M");
+        return false;
+      }
       setFileList((prev) => {
         return [
           ...prev,
@@ -85,7 +89,7 @@ export default function DraggerUpload(props: {
       </div>
       <div>
         <Typography.Text type="secondary">
-          支持单个或批量上传，严禁上传公司数据或其他隐私文件
+          支持单个或批量上传，单个文件最大20M
         </Typography.Text>
       </div>
     </Dragger>

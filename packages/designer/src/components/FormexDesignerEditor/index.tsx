@@ -15,7 +15,7 @@ import {
 import { ConfigProvider } from "antd";
 
 import zhCN from "antd/locale/zh_CN";
-import { FormexModel } from "@/stores/FormexModel";
+import { FormexModel, FormexModelProps } from "@/stores/FormexModel";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import DragLayer from "./DragLayer";
 
@@ -28,7 +28,8 @@ export default function FormexDesignerEditor(
     height?: number;
     title?: string;
     headerMenu?: React.ReactNode;
-  } & SchemaStoreConfig
+  } & SchemaStoreConfig &
+    FormexModelProps
 ) {
   const { height, title, headerMenu } = props;
   const storeRef = useRef<SchemaStore>(null);
@@ -49,7 +50,12 @@ export default function FormexDesignerEditor(
   return (
     <ConfigProvider locale={zhCN}>
       <StoreContext.Provider value={storeRef.current}>
-        <FormexModel.Provider value={defaultObj}>
+        <FormexModel.Provider
+          value={{
+            ...props,
+            ...defaultObj,
+          }}
+        >
           <DndProvider backend={HTML5Backend}>
             <div
               className="h-[100vh] w-[100%] flex flex-col"

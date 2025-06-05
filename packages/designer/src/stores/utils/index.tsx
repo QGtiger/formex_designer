@@ -48,6 +48,7 @@ export function FormItemLabelHoc(
     // 组件的默认值
     defaultValue?: any;
     onChange?: (value: any) => void;
+    required?: boolean;
   }>
 > {
   return function FormItemWrappedComponent(props) {
@@ -60,7 +61,10 @@ export function FormItemLabelHoc(
       <div className="flex flex-col gap-2">
         {props.name && (
           <div className="label font-semibold">
-            <Typography.Text>{props.name}</Typography.Text>
+            <Typography.Text>
+              {props.name}
+              {props.required ? "(必填)" : ""}
+            </Typography.Text>
           </div>
         )}
         <Component {...otherProps} />

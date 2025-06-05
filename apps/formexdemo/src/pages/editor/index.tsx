@@ -30,6 +30,10 @@ export default function EditorPage() {
         }}
         initialSchema={getSchemaByLocalStorage()}
         title="Formex"
+        onFileUpload={async (file) => {
+          const url = URL.createObjectURL(file);
+          return url;
+        }}
         headerMenu={
           <Button
             size="middle"
